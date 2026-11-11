@@ -87,7 +87,9 @@ export const checks = {
     containsAll(frontend, ['import.meta.env', '/api/activities', '/api/teams', '/api/leaderboard', '/api/workouts/suggestions/', 'role=[\"\']status', 'role=[\"\']alert', 'no activities|empty state'], 'Frontend implementation');
     for (const component of ['Activities', 'Teams', 'Leaderboard', 'Workouts']) {
       const text = readText(root, `octofit-tracker/frontend/src/components/${component}.tsx`);
-      assertValid(/import\s*\{[^}]*\bgetJson\b[^}]*\}\s*from\s*['"][./]*api\/client(?:\.js|\.ts)?['"]/.test(text) && /\bgetJson\s*[<(]/.test(text), `${component}.tsx must load data through getJson from src/api/client.ts`);
+      const importsClient = /import\s*\{[^}]*\bgetJson\b[^}]*\}\s*from\s*['"][./]*api\/client(?:\.js|\.ts)?['"]/.test(text);
+      const loadsThroughClient = /\bgetJson\s*[<(]/.test(text) || /\buseApiData(?:<[^>]+>)?\s*\(\s*getJson\s*,/.test(text);
+      assertValid(importsClient && loadsThroughClient, `${component}.tsx must load data through getJson from src/api/client.ts`);
       assertValid(!/\bfetch\s*\(/.test(text), `${component}.tsx must not call fetch directly; use the shared API client`);
     }
   },

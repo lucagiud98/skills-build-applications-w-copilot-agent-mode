@@ -1,0 +1,53 @@
+:root {
+  color-scheme: light;
+  --octofit-blue: #1d4ed8;
+  --octofit-orange: #ea580c;
+  --octofit-teal: #0f766e;
+  --octofit-ink: #17324d;
+  --octofit-surface: #ffffff;
+  --octofit-background: #eff6ff;
+}
+
+body {
+  background: var(--octofit-background);
+  color: var(--octofit-ink);
+}
+
+.app-header {
+  border-bottom: 3px solid var(--octofit-orange);
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(110deg, #dbeafe, #f0fdfa);
+  border-radius: 0.75rem;
+}
+
+.app-header h1 {
+  color: var(--octofit-blue);
+  font-weight: 700;
+}
+
+.app-header nav a {
+  color: var(--octofit-teal);
+  font-weight: 600;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.app-header nav a:hover,
+.app-header nav a:focus-visible {
+  color: var(--octofit-orange);
+}
+
+.card {
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid var(--octofit-orange);
+  background: var(--octofit-surface);
+  box-shadow: 0 0.25rem 0.75rem rgb(23 50 77 / 8%);
+}
+
+.card h2 {
+  color: var(--octofit-blue);
+}
+
+.card li::marker {
+  color: var(--octofit-teal);
+}
