@@ -1,11 +1,19 @@
 import { CapabilityCard } from './CapabilityCard.js';
+import { getJson } from '../api/client.js';
+import { useApiData } from '../hooks/useApiData.js';
+
+type Entry = { teamName: string; totalPoints: number; rank: number };
+
 export default function Leaderboard() {
+  const { items, isLoading, hasError } = useApiData<Entry>(getJson, '/api/leaderboard', 'leaderboard');
+
   return <CapabilityCard
     title="Leaderboard"
     description="Compare team point totals."
-    endpoint="/api/leaderboard"
-    dataKey="leaderboard"
     emptyMessage="No leaderboard rankings yet."
-    renderItem={(entry: { teamName: string; totalPoints: number; rank: number }) => `${entry.rank}. ${entry.teamName} - ${entry.totalPoints} points`}
+    items={items}
+    isLoading={isLoading}
+    hasError={hasError}
+    renderItem={(entry) => `${entry.rank}. ${entry.teamName} - ${entry.totalPoints} points`}
   />;
 }

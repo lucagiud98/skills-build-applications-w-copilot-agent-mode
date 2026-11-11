@@ -9,10 +9,10 @@ function renderRoute(route: string) {
 }
 
 const capabilities = [
-  { route: '/activities', empty: { activities: [] }, emptyText: /no activities/i },
-  { route: '/teams', empty: { teams: [] }, emptyText: /no teams/i },
-  { route: '/leaderboard', empty: { leaderboard: [] }, emptyText: /no (leaderboard|rankings|scores)/i },
-  { route: '/workouts', empty: { suggestions: [] }, emptyText: /no (workout|suggestions)/i },
+  { route: '/activities', name: 'Activities', empty: { activities: [] }, emptyText: /no activities/i },
+  { route: '/teams', name: 'Teams', empty: { teams: [] }, emptyText: /no teams/i },
+  { route: '/leaderboard', name: 'Leaderboard', empty: { leaderboard: [] }, emptyText: /no (leaderboard|rankings|scores)/i },
+  { route: '/workouts', name: 'Workout suggestions', empty: { suggestions: [] }, emptyText: /no (workout|suggestions)/i },
 ];
 
 describe('OctoFit presentation contract', () => {
@@ -60,6 +60,7 @@ describe('OctoFit presentation contract', () => {
       it('announces a loading state while the API request is pending', () => {
         vi.stubGlobal('fetch', vi.fn(() => new Promise<Response>(() => {})));
         renderRoute(capability.route);
+        expect(screen.getByRole('region', { name: capability.name })).toBeInTheDocument();
         expect(screen.getByRole('status')).toHaveTextContent(/loading/i);
       });
 
